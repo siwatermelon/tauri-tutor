@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style type="text/css"> 
+      h2{
+          text-align: center;
+          margin:50px auto;
+        }
+      #textarea{ 
+        display: block;
+        margin:0 auto;
+        /* overflow: hidden;  */
+        width: 728px; 
+        font-size: 14px;
+        height: 450px; 
+        line-height: 24px;
+        padding:2px; 
+      }
+      #input{ 
+        /* display: block; */
+        margin:0 auto;
+        overflow: hidden; 
+        width: 550px; 
+        font-size: 14px;
+        height: 18px; 
+        line-height: 24px;
+        padding:2px; 
+      }
+      textarea{
+        outline: 0 none;
+        border-color: rgba(82, 168, 236, 0.8);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+      }</style> 
+  </head>
+  <body>
+    <div style="text-align:center;vertical-align:middel;">
+      <h1 id="h1">这是一个可以将HTML转换成MD文档的小工具</h1>
+    </div>
+    <div style="text-align:center;vertical-align:middel;">
+      <input id="input" placeholder="https://www.rust-lang.org">
+      <button id="bt" onclick="btn()">提交</button>
+    </div><br>
+    <textarea id="textarea"></textarea>
+    <script>
+      const invoke = window.__TAURI__.invoke;
+      const elBtn = document.getElementById("bt");
+      
+      const text = document.getElementById("textarea");
+      function btn(){
+        const addr = document.getElementById("input");
+        console.log();
+        filter(addr.value)
+       }
+      filter('https://www.rust-lang.org')
+      function filter(arg) {
+        invoke('greet', { url: arg })
+        .then((response) => text.value=response).catch((error) => alert(error))
+      }
+    </script>
+  </body>
+</html>
